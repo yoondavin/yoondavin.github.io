@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>윤다빈 · 데이터 분석 공부 기록</title>
+<meta name="description" content="SQL · Python · Tableau 공부를 매일 기록하는 윤다빈의 데이터 분석 기록장">
+<style>html,body{margin:0;background:#fff}body{padding:0 0 40px}</style>
+</head>
+<body>
+<div id="igb-root"></div>
+<script>
+window.IGB_DATA={"profile": {"username": "윤다빈", "name": "데이터 분석 공부 기록", "bio": "SQL · Python · Tableau\n매일 조금씩, 질문하고 답을 찾는 과정을 기록합니다.", "avatar": "", "verified": false}, "posts": [{"id": "intro", "images": ["https://yoondavin.github.io/img/00_intro.png"], "caption": "데이터 분석을 공부하는 윤다빈의 기록장입니다. SQL · Python · Tableau 공부를 매일 조금씩 기록해요.", "date": "2026-11-26T09:00", "createdAt": 1}, {"id": "SQL_01", "images": ["https://yoondavin.github.io/img/SQL_01_1.png", "https://yoondavin.github.io/img/SQL_01_2.png", "https://yoondavin.github.io/img/SQL_01_3.png"], "caption": "[SQL #01] 가장 비싼 상품은 어떻게 찾을까? 서브쿼리로 최댓값을 먼저 구하고, 그 값과 같은 행을 찾았어요.\n\n#SQL #서브쿼리 #데이터분석 #프로그래머스 #공부기록", "date": "2026-11-26T20:00", "createdAt": 2}, {"id": "Python_01", "images": ["https://yoondavin.github.io/img/Python_01_1.png", "https://yoondavin.github.io/img/Python_01_2.png", "https://yoondavin.github.io/img/Python_01_3.png", "https://yoondavin.github.io/img/Python_01_4.png"], "caption": "[Python #01] 삼총사 문제를 3중 for문으로 풀고, itertools.combinations로 다시 풀어봤어요.\n\n#Python #itertools #코딩테스트 #데이터분석 #공부기록", "date": "2026-11-26T21:00", "createdAt": 3}]};
+(function () {
+  if (window.IGB) return;
+  var CSS = `
+.igb{position:relative;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;color:#000;background:#fff;max-width:640px;margin:0 auto;text-align:left;line-height:1.4;font-size:14px;letter-spacing:normal;-webkit-text-size-adjust:100%}
+.igb *{box-sizing:border-box}
+.igb img{max-width:none!important;border:0!important;margin:0!important;padding:0!important;box-shadow:none!important;border-radius:0!important;display:block;float:none!important}
+.igb button{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;-webkit-appearance:none;appearance:none;box-shadow:none;text-transform:none;letter-spacing:normal;line-height:inherit;outline-offset:2px}
+.igb svg{display:block}
+.igb-top{display:flex;align-items:center;gap:6px;padding:24px 120px 10px 16px;font-size:20px;font-weight:700;word-break:break-all}
+.igb-badge{flex:none}
+.igb-prof{display:flex;align-items:center;gap:28px;padding:6px 16px 0}
+.igb-av{width:86px;height:86px;border-radius:50%;overflow:hidden;flex:none;background:#efefef;position:relative;display:block}
+.igb-av img,.igb-mav img{width:100%!important;height:100%!important;object-fit:cover}
+.igb-av svg,.igb-mav svg{width:100%;height:100%}
+button.igb-av:hover{filter:brightness(.92)}
+.igb-meta{flex:1;min-width:0}
+.igb-name{font-weight:600;font-size:15px;margin-bottom:6px;word-break:break-all}
+.igb-stats{display:flex;gap:0;max-width:330px}
+.igb-stat{flex:1;text-align:center}
+.igb-heart svg{display:block}
+.igb-mark{text-align:right;font-size:10.5px;color:#c7c7c7;letter-spacing:.02em;user-select:none;line-height:1.2}
+.igb-corner{position:absolute;top:8px;right:14px;display:flex;flex-direction:column;align-items:flex-end;gap:5px;z-index:2}
+.igb-corner .igb-mark{padding:0}
+.igb-sbox{display:flex;align-items:center;gap:6px}
+.igb-sline{display:flex;justify-content:flex-end;padding:0 14px 8px;margin-top:-4px}
+.igb-sline[hidden]{display:none!important}
+.igb .igb-sline input{display:block;width:210px!important;max-width:100%!important;height:30px!important;margin:0!important;border:0!important;border-radius:8px!important;background:#efefef!important;padding:0 10px!important;font:inherit!important;font-size:12.5px!important;color:#000!important;outline:none!important;box-shadow:none!important;-webkit-appearance:none;appearance:none}
+.igb .igb-sline input::placeholder{color:#9a9a9a}
+.igb-stog{width:26px;height:26px;display:flex!important;align-items:center;justify-content:center;border-radius:50%!important}
+.igb-stog:hover{background:#efefef!important}
+.igb-rhead{padding:14px 16px 8px;font-size:14px;border-top:1px solid #dbdbdb;margin-top:18px}
+.igb-rhead b{font-weight:700}
+.igb-rhead span{color:#737373;margin-left:4px}
+.igb-rsec{padding:12px 16px 8px;font-size:13px;font-weight:700;color:#262626}
+.igb-rsec span{color:#737373;font-weight:400;margin-left:4px}
+.igb-stat b{display:flex;align-items:center;justify-content:center;height:24px;font-size:18px;font-weight:700;line-height:1}
+.igb-stat span{font-size:14px}
+.igb-bio{padding:14px 16px 0;white-space:pre-wrap;word-break:break-word;font-size:14px}
+.igb-tag{color:#00376b}
+.igb-actions{display:flex;gap:6px;padding:14px 16px 0}
+.igb-actions button{flex:1;background:#efefef;border-radius:8px;padding:8px 0;font-weight:600;font-size:14px;text-align:center}
+.igb-actions button:hover{background:#dbdbdb}
+.igb-tabs{display:flex;justify-content:center;border-bottom:1px solid #dbdbdb;margin-top:18px}
+.igb-tab{width:33.34%;display:flex!important;justify-content:center;padding:10px 0 11px!important;border-bottom:1.5px solid transparent!important;margin-bottom:-1px!important;opacity:.4}
+.igb-tab.on{border-bottom-color:#000!important;opacity:1}
+.igb-rgrid .igb-tile{aspect-ratio:9/16}
+.igb-rgrid .igb-tdate{top:6px;bottom:auto}
+.igb-views{position:absolute;left:8px;bottom:8px;display:flex;align-items:center;gap:4px;color:#fff;font-weight:600;font-size:13px;text-shadow:0 0 3px rgba(0,0,0,.6)}
+.igb-views svg{filter:drop-shadow(0 0 2px rgba(0,0,0,.5))}
+.igb-vslide{position:relative;background:#000!important;cursor:pointer}
+.igb-vslide iframe{width:100%;height:100%;border:0;display:block}
+.igb-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:64px;height:64px;border-radius:50%;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;pointer-events:none}
+.igb-isreel .igb-sheet{max-width:400px}
+.igb-sgrid .igb-tdate{top:auto;bottom:6px}
+.igb-sday{position:absolute;top:6px;left:6px;background:#fff;color:#000;border-radius:6px;padding:3px 7px;text-align:center;font-size:11px;line-height:1.15;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.igb-sday b{display:block;font-size:16px;font-weight:700}
+.igb.igb-story{background:rgba(0,0,0,.92);padding:24px}
+.igb-sframe{position:relative;width:min(calc(100vw - 48px),calc((100vh - 48px)*9/16));height:min(calc(100vh - 48px),calc((100vw - 48px)*16/9));background:#111;overflow:hidden;border-radius:10px}
+.igb-smedia{position:absolute;inset:0}
+.igb-smedia>img,.igb-sv img{width:100%!important;height:100%!important;object-fit:contain}
+.igb-sv{position:absolute;inset:0}
+.igb-sbars{position:absolute;top:8px;left:8px;right:8px;display:flex;gap:3px;z-index:3}
+.igb-sbars i{flex:1;height:2.5px;background:rgba(255,255,255,.35);border-radius:2px;overflow:hidden;display:block}
+.igb-sbars b{display:block;height:100%;background:#fff;width:0}
+.igb-shead{position:absolute;top:18px;left:10px;right:6px;display:flex;align-items:center;gap:8px;z-index:3;color:#fff;text-shadow:0 0 4px rgba(0,0,0,.6)}
+.igb-shead .igb-mav{width:32px;height:32px}
+.igb-suser{font-weight:600;font-size:14px}
+.igb-sdate{font-size:13px;color:rgba(255,255,255,.85)}
+.igb-story .igb-mbtn{color:#fff!important}
+.igb-story .igb-mbtn.igb-red{color:#ff9b9b!important}
+.igb-sx{padding:4px!important}
+.igb-sz{position:absolute!important;top:64px;bottom:0;z-index:2;background:transparent!important}
+.igb-szl{left:0;width:33%}
+.igb-szr{right:0;width:67%}
+.igb-svid .igb-szl,.igb-svid .igb-szr{width:16%}
+@media (max-width:600px){.igb.igb-story{padding:0}.igb-sframe{width:100vw;height:100%;border-radius:0}}
+.igb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding-top:2px}
+.igb-tile{position:relative!important;aspect-ratio:3/4;background:#efefef!important;overflow:hidden;display:block!important;width:100%!important;border-radius:0!important}
+.igb-tile img{position:absolute;top:0;left:0;width:100%!important;height:100%!important;object-fit:cover}
+.igb-tile:hover img{filter:brightness(.82)}
+.igb-multi{position:absolute;top:8px;right:8px;filter:drop-shadow(0 0 2px rgba(0,0,0,.45))}
+.igb-tdate{position:absolute;left:6px;bottom:6px;background:rgba(0,0,0,.6);color:#fff;font-size:11px;line-height:1.3;padding:2px 6px;border-radius:4px}
+.igb .igb-broken{display:flex!important;align-items:center;justify-content:center;color:#8e8e8e;font-size:12px}
+.igb-tile.igb-flash::after{content:"";position:absolute;inset:0;border:4px solid #0095f6;animation:igbFlash 1.8s ease forwards}
+@keyframes igbFlash{0%,55%{opacity:1}100%{opacity:0}}
+.igb-empty{text-align:center;padding:56px 16px 64px;color:#000}
+.igb-empty svg{margin:0 auto 14px}
+.igb-empty b{display:block;font-size:22px;font-weight:800;margin-bottom:6px}
+.igb-empty span{color:#737373;font-size:14px}
+.igb.igb-modal{position:fixed!important;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.65);max-width:none;margin:0;padding:24px}
+.igb-sheet{background:#fff;width:100%;max-width:470px;max-height:100%;overflow:auto;border-radius:12px}
+.igb-bar{display:flex;align-items:center;gap:2px;padding:6px 8px;border-bottom:1px solid #efefef;position:relative;min-height:54px}
+.igb-back{width:38px;height:38px;display:flex!important;align-items:center;justify-content:center;border-radius:50%!important}
+.igb-back:hover{background:#efefef!important}
+.igb-bt{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;line-height:1.25;pointer-events:none;white-space:nowrap}
+.igb-bt b{display:block;font-size:16px;font-weight:700}
+.igb-bt span{font-size:12.5px;color:#737373}
+.igb-sp{flex:1}
+.igb-mbtn{font-size:14px!important;font-weight:600!important;color:#0095f6!important;padding:6px 8px!important;position:relative;z-index:1}
+.igb-mbtn.igb-red{color:#ed4956!important}
+.igb-mhead{display:flex;align-items:center;gap:10px;padding:10px 14px}
+.igb-mav{width:36px;height:36px;border-radius:50%;overflow:hidden;background:#efefef;flex:none}
+.igb-muser{display:flex;align-items:center;gap:4px;font-weight:600;font-size:14px}
+.igb-music{display:flex;align-items:center;gap:5px;font-size:12.5px;color:#262626;margin-top:1px}
+.igb-acts{display:flex;align-items:center;gap:16px;padding:6px 12px 4px}
+.igb-act{display:flex;align-items:center;gap:5px;font-weight:600;font-size:14px}
+.igb-cmt{white-space:pre-wrap;word-break:break-word;font-size:14px;margin:3px 0}
+.igb-cmt b{font-weight:600}
+.igb-car{position:relative;background:#000}
+.igb-track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;aspect-ratio:var(--ar,1);-webkit-overflow-scrolling:touch}
+.igb-track::-webkit-scrollbar{display:none}
+.igb-slide{flex:0 0 100%;height:100%;scroll-snap-align:center;scroll-snap-stop:always;background:#efefef}
+.igb-slide img{width:100%!important;height:100%!important;object-fit:cover}
+.igb-nav{position:absolute!important;top:50%;transform:translateY(-50%);width:30px;height:30px;border-radius:50%!important;background:rgba(255,255,255,.88)!important;display:flex!important;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.2)!important}
+.igb-prev{left:10px}.igb-next{right:10px}
+.igb-nav[hidden]{display:none!important}
+.igb-count{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.65);color:#fff;font-size:12px;padding:3px 9px;border-radius:999px}
+.igb-dots{display:flex;justify-content:center;align-items:center;gap:4px;height:18px;margin-top:8px}
+.igb-dots i{width:6px;height:6px;border-radius:50%;background:#a8a8a8;display:block}
+.igb-dots i.sm{width:4px;height:4px}
+.igb-dots i.on{background:#0095f6}
+.igb-dots i[hidden]{display:none}
+.igb-mbody{padding:4px 14px 18px}
+.igb-cap{white-space:pre-wrap;word-break:break-word;font-size:14px;margin-bottom:4px}
+.igb-cap:empty{display:none}
+.igb-cap b{font-weight:600}
+.igb-date{color:#737373;font-size:12px;margin-top:6px}
+@media (max-width:600px){.igb.igb-modal{padding:0;align-items:stretch}.igb-sheet{max-width:none;max-height:none;height:100%;border-radius:0}.igb-prof{gap:20px}.igb-av{width:77px;height:77px}}
+`;
+  function scallop() {
+    var p = [], n = 24;
+    for (var i = 0; i < n; i++) {
+      var a = i / n * Math.PI * 2 - Math.PI / 2, r = i % 2 ? 10.3 : 11.7;
+      p.push((12 + r * Math.cos(a)).toFixed(2) + ' ' + (12 + r * Math.sin(a)).toFixed(2));
+    }
+    return 'M' + p.join('L') + 'Z';
+  }
+  var SCALLOP = scallop();
+  function badge(size) {
+    size = size || 18;
+    return '<svg class="igb-badge" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" aria-label="인증됨"><path d="' + SCALLOP + '" fill="#0095f6" stroke="#0095f6" stroke-width="1.4" stroke-linejoin="round"/><path d="M7.6 12.3l3 3 5.9-6.2" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  }
+  var ICON = {
+    grid: '<svg width="24" height="24" viewBox="0 0 24 24" aria-label="게시물"><g fill="#000"><rect x="2" y="2" width="5.6" height="5.6" rx="1"/><rect x="9.2" y="2" width="5.6" height="5.6" rx="1"/><rect x="16.4" y="2" width="5.6" height="5.6" rx="1"/><rect x="2" y="9.2" width="5.6" height="5.6" rx="1"/><rect x="9.2" y="9.2" width="5.6" height="5.6" rx="1"/><rect x="16.4" y="9.2" width="5.6" height="5.6" rx="1"/><rect x="2" y="16.4" width="5.6" height="5.6" rx="1"/><rect x="9.2" y="16.4" width="5.6" height="5.6" rx="1"/><rect x="16.4" y="16.4" width="5.6" height="5.6" rx="1"/></g></svg>',
+    multi: '<svg width="20" height="20" viewBox="0 0 24 24"><rect x="7" y="2.5" width="14.5" height="14.5" rx="2.5" fill="#fff"/><path d="M3.5 7.5v11a2.5 2.5 0 0 0 2.5 2.5h11" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>',
+    avatar: '<svg viewBox="0 0 24 24"><rect width="24" height="24" fill="#dbdbdb"/><circle cx="12" cy="9.6" r="4.3" fill="#fff"/><path d="M3.2 23c1.1-4.8 4.6-7.4 8.8-7.4s7.7 2.6 8.8 7.4z" fill="#fff"/></svg>',
+    back: '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M15.5 4l-8 8 8 8" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    heart: '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 20.3s-7.6-4.5-9.3-9.3C1.5 7.7 3.5 4.4 6.9 4.4c2.2 0 3.6 1.2 5.1 3 1.5-1.8 2.9-3 5.1-3 3.4 0 5.4 3.3 4.2 6.6-1.7 4.8-9.3 9.3-9.3 9.3z" fill="none" stroke="#000" stroke-width="1.9" stroke-linejoin="round"/></svg>',
+    comment: '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M20.7 16.8A9 9 0 1 0 17.1 20.3l4.3 1.1z" fill="none" stroke="#000" stroke-width="1.9" stroke-linejoin="round"/></svg>',
+    repost: '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M4 11.5V9.5a3 3 0 0 1 3-3h12.5M16.5 3.5l3 3-3 3M20 12.5v2a3 3 0 0 1-3 3H4.5M7.5 20.5l-3-3 3-3" fill="none" stroke="#000" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    send: '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M21.5 3 2.6 6.9l7.1 4.1L14.4 21zM9.7 11l11.8-8" fill="none" stroke="#000" stroke-width="1.9" stroke-linejoin="round"/></svg>',
+    save: '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M19 21l-7-6.2L5 21V3h14z" fill="none" stroke="#000" stroke-width="1.9" stroke-linejoin="round"/></svg>',
+    music: '<svg width="13" height="13" viewBox="0 0 24 24"><path d="M9 18V5.5l11-2V16" fill="none" stroke="#262626" stroke-width="2.4"/><circle cx="6" cy="18" r="3" fill="#262626"/><circle cx="17" cy="16" r="3" fill="#262626"/></svg>',
+    left: '<svg width="14" height="14" viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    right: '<svg width="14" height="14" viewBox="0 0 24 24"><path d="M9 4l8 8-8 8" fill="none" stroke="#000" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    camera: '<svg width="62" height="62" viewBox="0 0 64 64"><circle cx="32" cy="32" r="30" fill="none" stroke="#000" stroke-width="2"/><path d="M22 25h4l2.5-3.5h7L38 25h4a2 2 0 0 1 2 2v13a2 2 0 0 1-2 2H22a2 2 0 0 1-2-2V27a2 2 0 0 1 2-2z" fill="none" stroke="#000" stroke-width="2" stroke-linejoin="round"/><circle cx="32" cy="33" r="5" fill="none" stroke="#000" stroke-width="2"/></svg>'
+  };
+  function reelIcon(c, sz) {
+    return '<svg width="' + sz + '" height="' + sz + '" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5" fill="none" stroke="' + c + '" stroke-width="1.9"/><path d="M2.5 8.2h19M8.6 2.6l3 5.6M14.8 2.6l3 5.6" fill="none" stroke="' + c + '" stroke-width="1.9"/><path d="M10 11.3v6l5.2-3z" fill="' + c + '"/></svg>';
+  }
+  ICON.story = '<svg width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5" fill="none" stroke="#000" stroke-width="1.9" stroke-dasharray="3.4 2.2" stroke-linecap="round"/><path d="M12 16.6s-4.3-2.6-5.2-5.2c-.6-1.8.5-3.6 2.4-3.6 1.3 0 2.1.7 2.8 1.6.7-.9 1.5-1.6 2.8-1.6 1.9 0 3 1.8 2.4 3.6-.9 2.6-5.2 5.2-5.2 5.2z" fill="#000"/></svg>';
+  ICON.closeW = '<svg width="24" height="24" viewBox="0 0 24 24"><path d="M5.5 5.5l13 13M18.5 5.5l-13 13" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>';
+  ICON.search = function (c) { return '<svg width="15" height="15" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7" fill="none" stroke="' + c + '" stroke-width="2.4"/><path d="M16 16l5.5 5.5" stroke="' + c + '" stroke-width="2.4" stroke-linecap="round"/></svg>'; };
+  ICON.play = '<svg width="26" height="26" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="#fff"/></svg>';
+  ICON.playSm = '<svg width="15" height="15" viewBox="0 0 24 24"><path d="M7 4.8v14.4L19 12z" fill="none" stroke="#fff" stroke-width="2.4" stroke-linejoin="round"/></svg>';
+  function ytId(u) {
+    var m = /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/.exec(String(u || ''));
+    return m ? m[1] : '';
+  }
+  function ytThumb(id) { return 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'; }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function safe(u) {
+    u = String(u || '').trim();
+    return (/^https?:\/\//i.test(u) || /^data:image\//i.test(u)) ? u : '';
+  }
+  function isExp(u) { return /cdninstagram\.com|fbcdn\.net/i.test(String(u || '')); }
+  function rich(s) {
+    return esc(s).replace(/(^|[\s(（])([#@][0-9A-Za-z_가-힣ㄱ-ㅎㅏ-ㅣ.]+)/g, '$1<span class="igb-tag">$2</span>');
+  }
+  function num(n) { return Number(n).toLocaleString('ko-KR'); }
+  function parts(d) { var m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ''); return m ? [+m[1], +m[2], +m[3]] : null; }
+  function longDate(d) { var p = parts(d); return p ? p[0] + '년 ' + p[1] + '월 ' + p[2] + '일' : ''; }
+  function shortDate(d) { var p = parts(d), t = /T(\d{2}:\d{2})/.exec(d || ''); return p ? p[0] + '.' + p[1] + '.' + p[2] + (t ? ' ' + t[1] : '') : '날짜 없음'; }
+  function avatar(u) { u = safe(u); return u ? '<img src="' + esc(u) + '" alt="">' : ICON.avatar; }
+  function sorted(posts) {
+    return (posts || []).slice().sort(function (a, b) {
+      var c = String(b.date || '').localeCompare(String(a.date || ''));
+      return c || ((b.createdAt || 0) - (a.createdAt || 0));
+    });
+  }
+  // 날짜 검색어 해석: 2025.11.21 / 2025-11-21 / 2025년 11월 21일 / 20251121 / 25.11.21 / 11월 21일 / 2025.11 / 2025년
+  function parseDateQ(q) {
+    q = String(q || '').trim().replace(/\s+/g, ' ');
+    var m, sep = '\\s*[.\\-/년]\\s*';
+    if ((m = new RegExp('^(\\d{4})' + sep + '(\\d{1,2})\\s*[.\\-/월]\\s*(\\d{1,2})\\s*일?\\.?$').exec(q))) return { y: +m[1], mo: +m[2], d: +m[3] };
+    if ((m = /^(\d{4})(\d{2})(\d{2})$/.exec(q))) return { y: +m[1], mo: +m[2], d: +m[3] };
+    if ((m = /^(\d{2})[.\-\/](\d{1,2})[.\-\/](\d{1,2})\.?$/.exec(q))) return { y: 2000 + +m[1], mo: +m[2], d: +m[3] };
+    if ((m = new RegExp('^(\\d{4})' + sep + '(\\d{1,2})\\s*월?\\.?$').exec(q))) return { y: +m[1], mo: +m[2] };
+    if ((m = /^(\d{1,2})\s*월\s*(\d{1,2})\s*일?$/.exec(q))) return { mo: +m[1], d: +m[2] };
+    if ((m = /^(\d{1,2})\s*월$/.exec(q))) return { mo: +m[1] };
+    if ((m = /^((?:19|20)\d{2})\s*년?$/.exec(q))) return { y: +m[1] };
+    return null;
+  }
+  function dateMatch(dq, d) {
+    var pt = parts(d);
+    if (!pt) return false;
+    return (dq.y == null || dq.y === pt[0]) && (dq.mo == null || dq.mo === pt[1]) && (dq.d == null || dq.d === pt[2]);
+  }
+  function norm(t) { return String(t || '').toLowerCase().replace(/\s+/g, ' ').trim(); }
+  function captionMatch(x, q) {
+    // 띄어쓰기·줄바꿈을 모두 빼고 비교 → '한입하실래요'로 '한입 하실래요'도 찾음
+    var strip = function (t) { return norm(t).replace(/\s+/g, ''); };
+    var hay = [x.caption].concat(x.captions || []).map(strip).join('\n');
+    var nq = strip(q);
+    return !!nq && hay.indexOf(nq) >= 0;
+  }
+  function dateText(d) {
+    var pt = parts(d);
+    if (!pt) return '';
+    var y = pt[0], mo = pt[1], dd = pt[2], M = (mo < 10 ? '0' : '') + mo, D = (dd < 10 ? '0' : '') + dd, yy = String(y).slice(2);
+    return [y + '.' + M + '.' + D, y + '.' + mo + '.' + dd, y + '-' + M + '-' + D, y + '-' + mo + '-' + dd,
+      y + '/' + M + '/' + D, y + '/' + mo + '/' + dd, '' + y + M + D, yy + '.' + M + '.' + D, yy + '.' + mo + '.' + dd,
+      y + '년' + mo + '월' + dd + '일', y + '년' + M + '월' + D + '일'].join('|');
+  }
+  function dqLabel(dq) {
+    return (dq.y != null ? dq.y + '년 ' : '') + (dq.mo != null ? dq.mo + '월 ' : '') + (dq.d != null ? dq.d + '일' : '');
+  }
+  function injectCss() {
+    if (document.getElementById('igb-css')) return;
+    var s = document.createElement('style');
+    s.id = 'igb-css';
+    s.textContent = CSS;
+    document.head.appendChild(s);
+  }
+
+  function mount(root, data, opts) {
+    opts = opts || {};
+    injectCss();
+    var st = { data: data };
+    var ed = !!opts.editable;
+
+    function firstVid(x) {
+      var im = x.images || [];
+      for (var i = 0; i < im.length; i++) if (ytId(im[i])) return i;
+      return -1;
+    }
+    function cover(x, reelTab) {
+      if (reelTab && x.type !== 'reel') { var fi = firstVid(x); if (fi >= 0) return ytThumb(ytId(x.images[fi])); }
+      var f = (x.images || [])[0], v = ytId(f), t = safe(x.thumb);
+      if (t && (x.type === 'reel' || v)) return t;
+      return v ? ytThumb(v) : safe(f);
+    }
+    function tile(x, reelTab) {
+      var imgs = (x.images || []).filter(Boolean), u = cover(x, reelTab);
+      var start = reelTab && x.type !== 'reel' ? Math.max(0, firstVid(x)) : 0;
+      var hasV = x.type === 'reel' || imgs.some(function (q) { return ytId(q); });
+      var corner = imgs.length > 1 ? ICON.multi : (hasV ? reelIcon('#fff', 20) : '');
+      return '<button type="button" class="igb-tile" data-igb="tile" data-id="' + esc(x.id) + '" data-start="' + start + '">' +
+        (u ? '<img loading="lazy" src="' + esc(u) + '" alt="">' : '') +
+        (corner && !reelTab && x.type !== 'story' ? '<span class="igb-multi">' + corner + '</span>' : '') +
+        (x.type === 'story' && parts(x.date) ? '<span class="igb-sday"><b>' + parts(x.date)[2] + '</b>' + parts(x.date)[1] + '월</span>' : '') +
+        (reelTab && x.views ? '<span class="igb-views">' + ICON.playSm + '<span>' + esc(x.views) + '</span></span>' : '') +
+        (ed ? '<span class="igb-tdate">' + (imgs.some(isExp) || isExp(x.thumb) ? '⚠ ' : '') + esc(shortDate(x.date)) + '</span>' : '') +
+        '</button>';
+    }
+    function lists() {
+      var all = sorted((st.data || {}).posts);
+      return {
+        all: all,
+        grid: all.filter(function (x) { return x.type !== 'story' && (x.type !== 'reel' || x.inGrid); }),
+        reels: all.filter(function (x) { return x.type === 'reel' || (x.type !== 'story' && x.inReels && firstVid(x) >= 0); }),
+        stories: all.filter(function (x) { return x.type === 'story'; })
+      };
+    }
+    function render() {
+      var d = st.data || {}, p = d.profile || {}, L = lists();
+      var h = '<div class="igb"><div class="igb-corner"><div class="igb-mark"></div>' +
+        '<div class="igb-sbox"><button type="button" class="igb-stog" data-igb="stoggle" aria-label="검색" aria-expanded="' + (st.sopen ? 'true' : 'false') + '">' + ICON.search(st.sopen ? '#000' : '#8e8e8e') + '</button></div></div>';
+      h += '<div class="igb-top"><span>' + esc(p.username || '') + '</span>' + (p.verified ? badge(18) : '') + '</div>';
+      h += '<div class="igb-sline"' + (st.sopen ? '' : ' hidden') + '><input type="text" data-igb-q enterkeyhint="search" placeholder="캡션 또는 날짜 (예: 2025.11.21)" value="' + esc(st.q || '') + '" aria-label="검색" autocomplete="off"></div>';
+      h += '<div class="igb-prof">' + (ed
+        ? '<button type="button" class="igb-av" data-igb="profile" title="프로필 편집">' + avatar(p.avatar) + '</button>'
+        : '<div class="igb-av">' + avatar(p.avatar) + '</div>');
+      h += '<div class="igb-meta">' + (p.name ? '<div class="igb-name">' + esc(p.name) + '</div>' : '') +
+        '<div class="igb-stats"><div class="igb-stat"><b>' + num(L.grid.length) + '</b><span>게시물</span></div>' +
+        '<div class="igb-stat"><b class="igb-heart"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.2s-8.4-5-10.3-10.4C.4 7.1 2.6 3.4 6.4 3.4c2.5 0 4 1.4 5.6 3.4 1.6-2 3.1-3.4 5.6-3.4 3.8 0 6 3.7 4.7 7.4-1.9 5.4-10.3 10.4-10.3 10.4z" fill="#000"/></svg></b><span>팔로워</span></div>' +
+        '<div class="igb-stat"><b class="igb-heart"><svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.2s-8.4-5-10.3-10.4C.4 7.1 2.6 3.4 6.4 3.4c2.5 0 4 1.4 5.6 3.4 1.6-2 3.1-3.4 5.6-3.4 3.8 0 6 3.7 4.7 7.4-1.9 5.4-10.3 10.4-10.3 10.4z" fill="#000"/></svg></b><span>팔로잉</span></div></div></div></div>';
+      if (p.bio) h += '<div class="igb-bio">' + rich(p.bio) + '</div>';
+      if (ed) h += '<div class="igb-actions"><button type="button" data-igb="profile">프로필 편집</button><button type="button" data-igb="add">게시물 백업</button></div>';
+      root.innerHTML = h + '<div class="igb-body"></div></div>';
+      renderBody();
+    }
+    function gridHtml(list, kind) {
+      var rt = kind === 'reels', stt = kind === 'stories';
+      return '<div class="igb-grid' + (rt || stt ? ' igb-rgrid' : '') + (stt ? ' igb-sgrid' : '') + '">' +
+        list.map(function (x) { return tile(x, rt); }).join('') + '</div>';
+    }
+    function renderBody() {
+      var body = root.querySelector('.igb-body');
+      if (!body) return;
+      var L = lists(), q = norm(st.q), h = '';
+      if (q) {
+        // 날짜는 여러 표기(2026.10.31 / 2026-10-31 / 20261031 / 2026년 10월 31일 …)로 만들어 두고
+        // 검색어가 그 안 어디에든 들어 있으면 찾음 → '10.31', '10월 31', '2025.1' 같은 일부만 넣어도 됨
+        var qs = q.replace(/\s+/g, '');
+        var dateLike = /\d/.test(qs) && /^[0-9.\-\/년월일]+$/.test(qs);
+        var hit = function (x) {
+          var dh = dateLike && dateText(x.date).indexOf(qs) >= 0;
+          return x.type === 'story' ? dh : (dh || captionMatch(x, q));
+        };
+        var posts = L.all.filter(function (x) { return !x.type && hit(x); });
+        var reels = L.all.filter(function (x) { return x.type === 'reel' && hit(x); });
+        var stories = L.stories.filter(hit);
+        var total = posts.length + reels.length + stories.length;
+        h += '<div class="igb-rhead"><b>' + esc('‘' + st.q.trim() + '’') + '</b><span>검색 결과 · ' + total + '개</span></div>';
+        if (!total) h += '<div class="igb-empty"><b>검색 결과 없음</b><span>' + (dateLike ? '그 날짜가 들어간 콘텐츠가 없어요' : '같은 글귀가 들어간 게시물·릴스가 없어요') + '</span></div>';
+        if (posts.length) h += '<div class="igb-rsec">게시물<span>' + posts.length + '</span></div>' + gridHtml(posts, 'grid');
+        if (reels.length) h += '<div class="igb-rsec">릴스<span>' + reels.length + '</span></div>' + gridHtml(reels, 'reels');
+        if (stories.length) h += '<div class="igb-rsec">스토리<span>' + stories.length + '</span></div>' + gridHtml(stories, 'stories');
+        body.innerHTML = h;
+        return;
+      }
+      var tab = st.tab || 'grid', rt = tab === 'reels', stt = tab === 'stories', list = stt ? L.stories : (rt ? L.reels : L.grid);
+      var tb = function (k, label, icon) { return '<button type="button" class="igb-tab' + (tab === k ? ' on' : '') + '" data-igb="tab" data-tab="' + k + '" aria-label="' + label + '">' + icon + '</button>'; };
+      h += '<div class="igb-tabs">' + tb('grid', '게시물', ICON.grid) + tb('reels', '릴스', reelIcon('#000', 24)) + tb('stories', '스토리', ICON.story) + '</div>';
+      if (!list.length) {
+        h += '<div class="igb-empty">' + ICON.camera + '<b>' + (stt ? '스토리 없음' : rt ? '릴스 없음' : '게시물 없음') + '</b>' +
+          (ed ? '<span>위의 \'게시물 백업\'을 눌러 ' + (stt ? '스토리를' : rt ? '릴스를' : '첫 게시물을') + ' 추가하세요</span>' : '') + '</div>';
+      } else {
+        h += gridHtml(list, tab);
+      }
+      body.innerHTML = h;
+    }
+
+    root.addEventListener('input', function (e) {
+      if (!e.target.hasAttribute || !e.target.hasAttribute('data-igb-q')) return;
+      st.q = e.target.value;
+      renderBody();
+    });
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && e.target.hasAttribute && e.target.hasAttribute('data-igb-q')) {
+        var tg = root.querySelector('[data-igb=stoggle]');
+        if (tg && st.sopen) tg.click();
+      }
+    });
+    root.addEventListener('click', function (e) {
+      var t = e.target.closest ? e.target.closest('[data-igb]') : null;
+      if (!t || !root.contains(t)) return;
+      var a = t.getAttribute('data-igb');
+      if (a === 'tile') openPost(t.getAttribute('data-id'), +t.getAttribute('data-start') || 0);
+      else if (a === 'profile' && opts.onEditProfile) opts.onEditProfile();
+      else if (a === 'add' && opts.onAddPost) opts.onAddPost();
+      else if (a === 'tab') { st.tab = t.getAttribute('data-tab'); renderBody(); }
+      else if (a === 'stoggle') {
+        st.sopen = !st.sopen;
+        var qi = root.querySelector('[data-igb-q]');
+        root.querySelector('.igb-sline').hidden = !st.sopen;
+        t.setAttribute('aria-expanded', st.sopen ? 'true' : 'false');
+        t.innerHTML = ICON.search(st.sopen ? '#000' : '#8e8e8e');
+        if (st.sopen) qi.focus();
+        else { st.q = ''; qi.value = ''; renderBody(); }
+      }
+    });
+    root.addEventListener('error', function (e) {
+      var img = e.target;
+      if (!img || img.tagName !== 'IMG') return;
+      var box = img.parentNode;
+      if (box.classList.contains('igb-av')) { box.innerHTML = ICON.avatar; return; }
+      box.classList.add('igb-broken');
+      img.remove();
+      if (box.classList.contains('igb-tile') && !box.querySelector('.igb-nophoto')) {
+        var s = document.createElement('span'); s.className = 'igb-nophoto'; s.textContent = '사진 없음'; box.appendChild(s);
+      }
+    }, true);
+
+    function openPost(id, start) {
+      var d = st.data || {}, p = d.profile || {};
+      var x = (d.posts || []).filter(function (q) { return q.id === id; })[0];
+      if (!x) return;
+      if (x.type === 'story') return openStory(id);
+      var imgs = [], caps = [];
+      var rawStart = start || 0; start = 0;
+      (x.images || []).forEach(function (u, i) {
+        u = safe(u);
+        if (!u) return;
+        if (i === rawStart) start = imgs.length;
+        imgs.push(u);
+        caps.push(((x.captions || [])[i] || '').trim());
+      });
+      var n = imgs.length, user = esc(p.username || ''), isReel = x.type === 'reel';
+      function slide(u, i) {
+        var v = ytId(u);
+        if (!v) return '<div class="igb-slide"><img src="' + esc(u) + '" alt=""></div>';
+        var th = (i === 0 && safe(x.thumb)) || ytThumb(v);
+        return '<div class="igb-slide igb-vslide" data-vid="' + v + '"><img src="' + esc(th) + '" alt=""><span class="igb-play">' + ICON.play + '</span></div>';
+      }
+      function capFor(i) { return caps[i] || x.caption || ''; }
+      function capHtml(i) { var c = capFor(i); return c ? '<b>' + user + '</b> ' + rich(c) : ''; }
+      var acts = [['heart', x.likes], ['comment', x.comments], ['repost', x.reposts], ['send', x.shares]].map(function (a) {
+        return '<span class="igb-act">' + ICON[a[0]] + (a[1] ? '<span>' + esc(a[1]) + '</span>' : '') + '</span>';
+      }).join('');
+      var cmts = String(x.commentList || '').split('\n').map(function (l) { return l.trim(); }).filter(Boolean).map(function (l) {
+        var m = /^(\S+)\s+([\s\S]*)$/.exec(l);
+        return '<div class="igb-cmt">' + (m ? '<b>' + esc(m[1]) + '</b> ' + rich(m[2]) : rich(l)) + '</div>';
+      }).join('');
+      var m = document.createElement('div');
+      m.className = 'igb igb-modal' + (isReel ? ' igb-isreel' : '');
+      m.innerHTML = '<div class="igb-sheet" role="dialog" aria-modal="true">' +
+        '<div class="igb-bar"><button type="button" class="igb-back" data-m="close" aria-label="뒤로">' + ICON.back + '</button>' +
+        '<div class="igb-bt"><b>' + (isReel ? '릴스' : '게시물') + '</b><span>' + user + '</span></div><span class="igb-sp"></span>' +
+        (ed ? '<button type="button" class="igb-mbtn" data-m="edit">수정</button><button type="button" class="igb-mbtn igb-red" data-m="del">삭제</button>' : '') +
+        '</div>' +
+        '<div class="igb-mhead"><span class="igb-mav">' + avatar(p.avatar) + '</span><div><div class="igb-muser">' + user + (p.verified ? badge(15) : '') + '</div>' +
+        (x.music ? '<div class="igb-music">' + ICON.music + '<span>' + esc(x.music) + '</span></div>' : '') + '</div></div>' +
+        '<div class="igb-car"><div class="igb-track">' +
+        imgs.map(slide).join('') + '</div>' +
+        (n > 1 ? '<button type="button" class="igb-nav igb-prev" data-m="prev" aria-label="이전" hidden>' + ICON.left + '</button>' +
+          '<button type="button" class="igb-nav igb-next" data-m="next" aria-label="다음">' + ICON.right + '</button>' +
+          '<span class="igb-count">1/' + n + '</span>' : '') + '</div>' +
+        (n > 1 ? '<div class="igb-dots">' + imgs.map(function () { return '<i></i>'; }).join('') + '</div>' : '') +
+        '<div class="igb-acts">' + acts + '<span class="igb-sp"></span><span class="igb-act">' + ICON.save + '</span></div>' +
+        '<div class="igb-mbody"><div class="igb-cap">' + capHtml(0) + '</div>' + cmts +
+        '<div class="igb-date">' + esc(longDate(x.date)) + '</div></div></div>';
+      document.body.appendChild(m);
+      var prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      var track = m.querySelector('.igb-track'), capEl = m.querySelector('.igb-cap'), cur = -1;
+
+      var first = track.querySelector('.igb-slide:first-child:not(.igb-vslide) img'), fv = ytId(imgs[0]);
+      if (isReel) track.style.setProperty('--ar', '0.5625');
+      else if (fv) track.style.setProperty('--ar', /shorts\//i.test(imgs[0]) ? '0.5625' : '1.7778');
+      else if (first) {
+        var setAr = function () {
+          if (!first.naturalWidth) return;
+          var r = first.naturalWidth / first.naturalHeight;
+          track.style.setProperty('--ar', String(Math.min(1.91, Math.max(0.75, r))));
+        };
+        if (first.complete) setAr(); else first.addEventListener('load', setAr);
+      }
+      function dots(i) {
+        var ds = m.querySelectorAll('.igb-dots i');
+        if (!ds.length) return;
+        var start = Math.max(0, Math.min(i - 2, n - 5));
+        for (var k = 0; k < ds.length; k++) {
+          var inWin = k >= start && k < start + 5;
+          ds[k].hidden = !inWin;
+          var edge = (k === start && start > 0) || (k === start + 4 && start + 5 < n);
+          ds[k].className = (k === i ? 'on' : '') + (edge ? ' sm' : '');
+        }
+      }
+      function sync() {
+        var i = Math.round(track.scrollLeft / Math.max(1, track.clientWidth));
+        if (i === cur) return;
+        cur = i;
+        dots(i);
+        var c = m.querySelector('.igb-count'); if (c) c.textContent = (i + 1) + '/' + n;
+        var pv = m.querySelector('.igb-prev'), nx = m.querySelector('.igb-next');
+        if (pv) pv.hidden = i === 0;
+        if (nx) nx.hidden = i === n - 1;
+        capEl.innerHTML = capHtml(i);
+        for (var j = 0; j < track.children.length; j++) {
+          var sl = track.children[j];
+          if (j !== i && sl._orig) { sl.innerHTML = sl._orig; sl._orig = null; }
+        }
+      }
+      function play(sl) {
+        sl._orig = sl.innerHTML;
+        sl.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + sl.getAttribute('data-vid') +
+          '?autoplay=1&playsinline=1&rel=0" title="동영상" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+      }
+      sync();
+      track.addEventListener('scroll', sync);
+      if (start > 0) requestAnimationFrame(function () { track.scrollLeft = start * track.clientWidth; sync(); });
+      function go(dir) { track.scrollBy({ left: dir * track.clientWidth, behavior: 'smooth' }); }
+      function close() {
+        m.remove();
+        document.body.style.overflow = prevOverflow;
+        document.removeEventListener('keydown', onKey);
+      }
+      function onKey(e) {
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowLeft') go(-1);
+        else if (e.key === 'ArrowRight') go(1);
+      }
+      document.addEventListener('keydown', onKey);
+      m.addEventListener('click', function (e) {
+        if (e.target === m) return close();
+        var vs = e.target.closest ? e.target.closest('.igb-vslide') : null;
+        if (vs && !vs._orig) { play(vs); return; }
+        var t = e.target.closest ? e.target.closest('[data-m]') : null;
+        if (!t) return;
+        var a = t.getAttribute('data-m');
+        if (a === 'close') close();
+        else if (a === 'prev') go(-1);
+        else if (a === 'next') go(1);
+        else if (a === 'edit') { close(); if (opts.onEditPost) opts.onEditPost(id); }
+        else if (a === 'del') { if (opts.onDeletePost && opts.onDeletePost(id)) close(); }
+      });
+      m.addEventListener('error', function (e) {
+        if (e.target && e.target.tagName === 'IMG' && e.target.parentNode.classList.contains('igb-mav')) e.target.parentNode.innerHTML = ICON.avatar;
+      }, true);
+    }
+
+    function openStory(id) {
+      var d = st.data || {}, p = d.profile || {};
+      var list = sorted(d.posts).filter(function (q) { return q.type === 'story'; });
+      var si = 0, fi = 0, timer = null;
+      list.forEach(function (q, i) { if (q.id === id) si = i; });
+      var m = document.createElement('div');
+      m.className = 'igb igb-modal igb-story';
+      m.innerHTML = '<div class="igb-sframe" role="dialog" aria-modal="true"><div class="igb-sbars"></div>' +
+        '<div class="igb-shead"><span class="igb-mav">' + avatar(p.avatar) + '</span><span class="igb-suser">' + esc(p.username || '') + '</span>' +
+        '<span class="igb-sdate"></span><span class="igb-sp"></span>' +
+        (ed ? '<button type="button" class="igb-mbtn" data-s="edit">수정</button><button type="button" class="igb-mbtn igb-red" data-s="del">삭제</button>' : '') +
+        '<button type="button" class="igb-sx" data-s="close" aria-label="닫기">' + ICON.closeW + '</button></div>' +
+        '<div class="igb-smedia"></div>' +
+        '<button type="button" class="igb-sz igb-szl" data-s="prev" aria-label="이전"></button>' +
+        '<button type="button" class="igb-sz igb-szr" data-s="next" aria-label="다음"></button></div>';
+      document.body.appendChild(m);
+      var prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      var frame = m.querySelector('.igb-sframe'), bars = m.querySelector('.igb-sbars'), media = m.querySelector('.igb-smedia');
+      function frames(q) { return ((q && q.images) || []).map(safe).filter(Boolean); }
+      function show() {
+        clearTimeout(timer);
+        var q = list[si], fr = frames(q), u = fr[fi] || '', v = ytId(u);
+        bars.innerHTML = fr.map(function (_, k) { return '<i><b' + (k < fi ? ' style="width:100%"' : '') + '></b></i>'; }).join('');
+        m.querySelector('.igb-sdate').textContent = longDate(q.date);
+        frame.classList.toggle('igb-svid', !!v);
+        var bar = bars.children[fi] && bars.children[fi].firstChild;
+        if (v) {
+          media.innerHTML = '<div class="igb-vslide igb-sv" data-vid="' + v + '"><img src="' + esc(ytThumb(v)) + '" alt=""><span class="igb-play">' + ICON.play + '</span></div>';
+          if (bar) bar.style.width = '100%';
+        } else {
+          media.innerHTML = u ? '<img src="' + esc(u) + '" alt="">' : '';
+          if (bar) { void bar.offsetWidth; bar.style.transition = 'width 5s linear'; bar.style.width = '100%'; }
+          timer = setTimeout(function () { go(1); }, 5000);
+        }
+      }
+      function go(dir) {
+        fi += dir;
+        if (fi >= frames(list[si]).length) {
+          if (si + 1 < list.length) { si++; fi = 0; } else { close(); return; }
+        } else if (fi < 0) {
+          if (si > 0) { si--; fi = Math.max(0, frames(list[si]).length - 1); } else fi = 0;
+        }
+        show();
+      }
+      function close() {
+        clearTimeout(timer);
+        m.remove();
+        document.body.style.overflow = prevOverflow;
+        document.removeEventListener('keydown', onKey);
+      }
+      function onKey(e) {
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowLeft') go(-1);
+        else if (e.key === 'ArrowRight') go(1);
+      }
+      document.addEventListener('keydown', onKey);
+      m.addEventListener('click', function (e) {
+        if (e.target === m) return close();
+        var vs = e.target.closest ? e.target.closest('.igb-sv') : null;
+        if (vs && !vs.querySelector('iframe')) {
+          clearTimeout(timer);
+          vs.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + vs.getAttribute('data-vid') +
+            '?autoplay=1&playsinline=1&rel=0" title="동영상" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+          return;
+        }
+        var t = e.target.closest ? e.target.closest('[data-s]') : null;
+        if (!t) return;
+        var a = t.getAttribute('data-s'), cur = list[si];
+        if (a === 'close') close();
+        else if (a === 'prev') go(-1);
+        else if (a === 'next') go(1);
+        else if (a === 'edit') { close(); if (opts.onEditPost) opts.onEditPost(cur.id); }
+        else if (a === 'del') { clearTimeout(timer); if (opts.onDeletePost && opts.onDeletePost(cur.id)) close(); else show(); }
+      });
+      m.addEventListener('error', function (e) {
+        if (e.target && e.target.tagName === 'IMG' && e.target.parentNode.classList.contains('igb-mav')) e.target.parentNode.innerHTML = ICON.avatar;
+      }, true);
+      show();
+    }
+
+    function highlight(id) {
+      var hx = ((st.data || {}).posts || []).filter(function (q) { return q.id === id; })[0];
+      if (hx) {
+        var want = hx.type === 'story' ? 'stories' : hx.type === 'reel' && (!hx.inGrid || st.tab === 'reels') ? 'reels' : 'grid';
+        if (!st.q && want !== (st.tab || 'grid')) { st.tab = want; renderBody(); }
+      }
+      var t = root.querySelector('.igb-tile[data-id="' + String(id).replace(/["\\]/g, '') + '"]');
+      if (!t) return;
+      t.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      t.classList.remove('igb-flash');
+      void t.offsetWidth;
+      t.classList.add('igb-flash');
+      setTimeout(function () { t.classList.remove('igb-flash'); }, 2000);
+    }
+
+    render();
+    return { update: function (d) { st.data = d; render(); }, openPost: openPost, highlight: highlight };
+  }
+
+  window.IGB = { mount: mount, isExpiring: isExp, safeUrl: safe, esc: esc, ytId: ytId, ytThumb: ytThumb };
+})();
+IGB.mount(document.getElementById("igb-root"), window.IGB_DATA);
+</script>
+</body>
+</html>
